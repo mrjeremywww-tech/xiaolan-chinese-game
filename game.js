@@ -71,7 +71,7 @@ const measureWords = [
     { noun: '花', measure: '朵', image: '🌸', options: ['朵', '枝', '片', '個'] },
     { noun: '書', measure: '本', image: '📚', options: ['張', '本', '頁', '個'] },
     { noun: '魚', measure: '條', image: '🐟', options: ['隻', '條', '尾', '個'] },
-    { noun: '車', measure: '輛', image: '🚗', options: '部', '輛', '台', '個'] },
+    { noun: '車', measure: '輛', image: '🚗', options: ['部', '輛', '台', '個'] },
     { noun: '筆', measure: '支', image: '✏️', options: ['把', '支', '枝', '個'] },
     { noun: '鳥', measure: '隻', image: '🐦', options: ['隻', '隻', '尾', '個'] }
 ];
