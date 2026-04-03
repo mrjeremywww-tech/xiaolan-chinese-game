@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小嵐山中文測驗 🐱</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.3.0/dist/hanzi-writer.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header with 小嵐山 Mascot -->
+        <header class="cartoon-header">
+            <div class="cat-mascot" id="xiaolanCat">
+                <div class="cat-body">
+                    <div class="cat-ear left"></div>
+                    <div class="cat-ear right"></div>
+                    <div class="cat-face">
+                        <div class="cat-eye left">
+                            <div class="eye-shine"></div>
+                        </div>
+                        <div class="cat-eye right">
+                            <div class="eye-shine"></div>
+                        </div>
+                        <div class="cat-nose"></div>
+                        <div class="cat-mouth"></div>
+                        <div class="cat-blush left"></div>
+                        <div class="cat-blush right"></div>
+                    </div>
+                    <div class="cat-paw left">🐾</div>
+                    <div class="cat-paw right">🐾</div>
+                </div>
+                <div class="cat-name-tag">小嵐山</div>
+            </div>
+            <h1 class="cartoon-title">🐱 小嵐山中文測驗 🐱</h1>
+            <p class="cartoon-subtitle">一起學中文，好玩又有趣！</p>
+        </header>
+
+        <!-- Score Board -->
+        <div class="score-board">
+            <div class="score-item">
+                <span class="score-icon">🌟</span>
+                <span id="totalStars">0</span>
+            </div>
+            <div class="score-item">
+                <span class="score-icon">🐟</span>
+                <span id="totalFish">0</span>
+            </div>
+        </div>
+
+        <!-- Main Menu -->
+        <div id="mainMenu" class="menu-container">
+            <h2 class="menu-title">選擇測驗類型！</h2>
+            <div class="levels-grid">
+                <button class="level-btn" data-level="1" onclick="startGame(1)">
+                    <span class="level-icon">🔍</span>
+                    <span class="level-name">古文字猜猜看</span>
+                    <span class="level-desc">象形文字大挑戰</span>
+                </button>
+                <button class="level-btn" data-level="2" onclick="startGame(2)">
+                    <span class="level-icon">🧩</span>
+                    <span class="level-name">組合漢字</span>
+                    <span class="level-desc">門 + 口 = ?</span>
+                </button>
+                <button class="level-btn" data-level="3" onclick="startGame(3)">
+                    <span class="level-icon">📏</span>
+                    <span class="level-name">量詞選擇</span>
+                    <span class="level-desc">一___花</span>
+                </button>
+                <button class="level-btn" data-level="4" onclick="startGame(4)">
+                    <span class="level-icon">⚖️</span>
+                    <span class="level-name">反義詞填空</span>
+                    <span class="level-desc">危險 = ?</span>
+                </button>
+                <button class="level-btn" data-level="5" onclick="startGame(5)">
+                    <span class="level-icon">📝</span>
+                    <span class="level-name">句子排序</span>
+                    <span class="level-desc">圖片配對</span>
+                </button>
+                <button class="level-btn highlight" data-level="6" onclick="startGame(6)">
+                    <span class="level-icon">✍️</span>
+                    <span class="level-name">描紅練習</span>
+                    <span class="level-desc">跟小嵐山寫字</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Game Container -->
+        <div id="gameContainer" class="game-container hidden">
+            <div class="game-header">
+                <button class="cartoon-btn back-btn" onclick="backToMenu()">← 返回</button>
+                <h2 id="gameTitle" class="game-title">遊戲標題</h2>
+                <div class="game-score">
+                    <span>🌟 <span id="gameStars">0</span></span>
+                </div>
+            </div>
+
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+                <div class="cat-progress">🐱</div>
+            </div>
+
+            <div class="xiaolan-helper" id="xiaolanHelper">
+                <div class="speech-bubble" id="speechBubble">加油！你可以的！🐱</div>
+                <div class="mini-xiaolan">🐱</div>
+            </div>
+
+            <div id="gameArea" class="game-area">
+                <!-- 遊戲內容動態生成 -->
+            </div>
+
+            <!-- Hanzi Writer Container for Tracing -->
+            <div id="hanziContainer" class="hanzi-container hidden">
+                <div id="hanziWriter"></div>
+                <div class="hanzi-controls">
+                    <button class="cartoon-btn" onclick="hanziWriter.animate()">▶️ 示範</button>
+                    <button class="cartoon-btn" onclick="hanziWriter.quiz()">✏️ 練習</button>
+                    <button class="cartoon-btn" onclick="nextTracing()">➡️ 下一字</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Modal -->
+        <div id="resultsModal" class="modal hidden">
+            <div class="modal-content cartoon-box">
+                <div class="celebration-cat">🐱</div>
+                <h2 class="modal-title">太棒了！</h2>
+                <div class="result-stars" id="resultStars">🌟🌟🌟</div>
+                <p id="resultMessage">你答對了！</p>
+                <div class="rewards">
+                    <span>🐟</span>
+                    <span id="fishEarned">+3</span>
+                </div>
+                <button class="cartoon-btn primary" onclick="continueGame()">繼續 →</button>
+            </div>
+        </div>
+
+        <!-- Level Complete Modal -->
+        <div id="levelCompleteModal" class="modal hidden">
+            <div class="modal-content cartoon-box celebration">
+                <div class="big-celebration-cat">🐱</div>
+                <h2 class="modal-title">🏆 關卡完成！</h2>
+                <div class="final-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">獲得星星</span>
+                        <span class="stat-value" id="finalStars">0</span>
+                        <span>🌟</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">獲得小魚</span>
+                        <span class="stat-value" id="finalFish">0</span>
+                        <span>🐟</span>
+                    </div>
+                </div>
+                <p class="xiaolan-message">小嵐山說：「你好棒！」</p>
+                <button class="cartoon-btn primary" onclick="backToMenu()">返回選單</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
