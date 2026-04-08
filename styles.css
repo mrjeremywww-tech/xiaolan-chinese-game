@@ -324,6 +324,25 @@ body {
     50% { box-shadow: 0 0 0 10px rgba(102, 187, 106, 0); }
 }
 
+.level-btn.new {
+    background: linear-gradient(135deg, #FFD54F 0%, #FF8C42 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.level-btn.new::after {
+    content: 'NEW!';
+    position: absolute;
+    top: 5px;
+    right: -20px;
+    background: #EF5350;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 900;
+    padding: 2px 25px;
+    transform: rotate(45deg);
+}
+
 .level-icon {
     font-size: 3rem;
     margin-bottom: 5px;
